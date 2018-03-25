@@ -61,10 +61,8 @@ public class University {
         return students.stream().filter(s -> s.getGroup().equals(group)).collect(Collectors.toList());
     }
 
-    public void printUniversity() {
-        System.out.println("University name: " + title);
-        System.out.println("List of students:");
-        System.out.println("==============================================================");
+    public void printUniversity(List<Student> students, String message) {
+        System.out.println(String.format("=== University name: '%s' filtered by: '%s' ===", title, message));
         students.forEach(student -> System.out.println(student.toString()));
         System.out.println("==============================================================");
     }
