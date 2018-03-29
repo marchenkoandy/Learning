@@ -22,10 +22,10 @@ public class Main {
                 new Student("Qandy", "", "Jar", 180000L, "Vinnitsa", "55-944", "Almost builder", "1", "M"),
                 new Student("Pandy", "", "Lar", 150000L, "Kyiv", "5-9444", "Not builder", "1", "N")
         ));
-        university.printUniversity(university.getStudents(),"All students:");
-        university.printUniversity(university.studentsByBirthDay(160000L),"Birthday:");
-        university.printUniversity(university.studentsByCourse("2"),"Course:");
-        university.printUniversity(university.studentsByFaculty("Almost builder"),"Faculty:");
-        university.printUniversity(university.studentsByGroup("N"),"Group:");
+        university.printUniversity(university.getStudents(), "All students:");
+        university.printUniversity(university.studentsByBirthDay(160000L), "Birthday:");
+        university.printUniversity(university.studentsByCourse("2"), "Course:");
+        university.printUniversity(university.studentsByFaculty("Almost builder"), "Faculty:");
+        university.printUniversity(university.studentsByGroup("N"), "Group:");
     }
 }
