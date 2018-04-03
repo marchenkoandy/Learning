@@ -1,0 +1,7 @@
+.idea
+target
+dependency-tree.bat
+dependencies*.txt
+*Debug*.*
+refactoring
+*.iml
