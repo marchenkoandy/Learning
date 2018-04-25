@@ -8,20 +8,29 @@ public class Lesson9 {
 //    суммируются попарно рядом стоящие числа, на втором этапе суммируются
 //    результаты первого этапа и т. д. до тех пор, пока не останется одно число.
 
-    public long getListSum(List<Integer> list) {
+    public long getSumStream(List<Integer> list) {
         return list.stream().mapToInt(Integer::intValue).sum();
     }
 
+    public long getSumOrdinar(List<Integer> list) {
+        long sum = 0;
+        for (int i1 = 0, listSize = list.size(); i1 < listSize; i1++) {
+            Integer i = list.get(i1);
+            sum += i;
+        }
+        return sum;
+    }
+
     public void printList(List<Integer> list) {
-        System.out.println(String.format("Sum of elements '%s'. List:\n%s", getListSum(list), list));
+        System.out.println(String.format("Sum of elements '%s'. List:\n%s", getSumStream(list), list));
     }
 
     public Set<Integer> generateRandomSet(int count) {
         Set<Integer> set = new TreeSet<>();
         while (count > set.size()) {
-            set.add(new Random().nextInt(count +100));
+            set.add(new Random().nextInt(count + 100));
         }
-        printList(new ArrayList<>(set));
+//        printList(new ArrayList<>(set));
         return set;
     }
 
@@ -45,6 +54,22 @@ public class Lesson9 {
 
     public static void main(String[] args) {
         Lesson9 lesson9 = new Lesson9();
-        lesson9.sumSet(lesson9.generateRandomSet(10));
+        List <Integer> list = new ArrayList<>(lesson9.generateRandomSet(10_000_000));
+        long start;
+        long stop;
+        start = new Date().getTime();
+        System.out.println(lesson9.getSumOrdinar(list));
+        stop = new Date().getTime();
+        System.out.println("Stream loop: "+(stop-start));
+
+
+        start = new Date().getTime();
+        System.out.println(lesson9.getSumOrdinar(list));
+        stop = new Date().getTime();
+        System.out.println("Ordinar loop: "+(stop-start));
+
+
     }
+
+
 }
