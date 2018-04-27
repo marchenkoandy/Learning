@@ -62,8 +62,8 @@ public class Lesson8 {
         Lesson8 lesson8 = new Lesson8();
         List<String> list = lesson8.getListOfChars(lesson8.LINE);
         Map<String, Integer> map = lesson8.getUniqueCharsCount(list);
-        Map<String, Integer> sortedMapWithStreamApi = lesson8.sortMapByValueWithStreamApi(map);
-        lesson8.printMostCommonlyUsedLetters(sortedMapWithStreamApi, 5);
+//        Map<String, Integer> sortedMapWithStreamApi = lesson8.sortMapByValueWithStreamApi(map);
+//        lesson8.printMostCommonlyUsedLetters(sortedMapWithStreamApi, 5);
         Map<String, Integer> sortedMap = lesson8.sortMapByValue(map);
         lesson8.printMostCommonlyUsedLetters(sortedMap, 5);
     }

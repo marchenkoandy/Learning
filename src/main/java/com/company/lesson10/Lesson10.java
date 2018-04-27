@@ -51,10 +51,28 @@ public class Lesson10 {
         FileWriter fileWriter = null;
         File file = new File("src\\main\\java\\com\\company\\lesson10\\example1.txt");
         try {
-            fileWriter = new FileWriter(file);
-            fileWriter.append("123");
+            file.getParentFile().mkdirs();
+            file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        try {
+            fileWriter = new FileWriter(file);
+            for (String line :list ) {
+                fileWriter.append(line);
+                fileWriter.append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileWriter != null) {
+                try {
+                    fileWriter.flush();
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
