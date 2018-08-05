@@ -1,9 +1,12 @@
 package com.company.lesson12;
 
+import com.company.lesson10.Lesson10;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
+import java.util.List;
 
 /**
  * #Summary:
@@ -13,20 +16,32 @@ import cucumber.api.java.en.When;
  * #Comments:
  */
 public class MyStepdefs {
-    @Given("^Given step$")
-    public void givenStep() throws Throwable {
+
+    @Given("^I have file \"([^\"]*)\" with string content$")
+    public void iHaveFileWithStringContent(String fileName) throws Throwable {
+        List<String> fileLines = new Lesson10().readFileAsList(fileName);
+    }
+
+    @When("^I read file content to List$")
+    public void iReadFileContentToList() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
-    @When("^When step$")
-    public void whenStep() throws Throwable {
+    @When("^I change place of \"([^\"]*)\" word with \"([^\"]*)\" word$")
+    public void iChangePlaceOfWordWithWord(String arg0, String arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
-    @Then("^Then step$")
-    public void thenStep() throws Throwable {
+    @Then("^I write changed list to file \"([^\"]*)\"$")
+    public void iWriteChangedListToFile(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^I print changed list to console$")
+    public void iPrintChangedListToConsole() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }

@@ -14,10 +14,10 @@ import java.util.zip.InflaterInputStream;
  * #Comments:
  */
 public class Lesson10 {
-    public Properties readPropFile() {
+    public Properties readPropFile(String fileName) {
         Properties properties = new Properties();
         try {
-            String fileName= "src\\main\\java\\com\\company\\lesson10\\example.properties";
+//            String fileName = "src\\main\\java\\com\\company\\lesson10\\example.properties";
             File file = new File(fileName);
             FileInputStream fileInputStream = new FileInputStream(file);
             properties.load(fileInputStream);
@@ -27,13 +27,15 @@ public class Lesson10 {
         return properties;
     }
 
-    public List<String> readFileAsList() {
+    public List<String> readFileAsList(String fileName) {
         List<String> list = new ArrayList<>();
-        File file = new File("src\\main\\java\\com\\company\\lesson10\\example.properties");
-        FileInputStream fileInputStream;
+        File file = new File(fileName);
+//        File file = new File("src\\main\\java\\com\\company\\lesson10\\example.properties");
+        FileInputStream fileInputStream = null;
+        BufferedReader br = null;
         try {
             fileInputStream = new FileInputStream(file);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
+            br = new BufferedReader(new InputStreamReader(fileInputStream));
             String line;
             while ((line = br.readLine()) != null) {
                 list.add(line);
@@ -43,6 +45,21 @@ public class Lesson10 {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return list;
     }
@@ -58,7 +75,7 @@ public class Lesson10 {
         }
         try {
             fileWriter = new FileWriter(file);
-            for (String line :list ) {
+            for (String line : list) {
                 fileWriter.append(line);
                 fileWriter.append("\n");
             }
@@ -77,10 +94,10 @@ public class Lesson10 {
     }
 
     public static void main(String[] args) {
-        Lesson10 lesson10 = new Lesson10();
-        System.out.println(lesson10.readPropFile().getProperty("prop.1"));
-        List<String> list = lesson10.readFileAsList();
-        lesson10.writeToFile(list);
-        System.out.println(list);
+//        Lesson10 lesson10 = new Lesson10();
+//        System.out.println(lesson10.readPropFile().getProperty("prop.1"));
+//        List<String> list = lesson10.readFileAsList();
+//        lesson10.writeToFile(list);
+//        System.out.println(list);
     }
 }

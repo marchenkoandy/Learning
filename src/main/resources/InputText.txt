@@ -1,0 +1,11 @@
+public class Lesson10 {
+public Properties readPropFile(String fileName) {
+Properties properties = new Properties();
+try {
+String fileName = "src\\main\\java\\com\\company\\lesson10\\example.properties";
+File file = new File(fileName);
+FileInputStream fileInputStream = new FileInputStream(file);
+properties.load(fileInputStream);
+catch (IOException e) {
+e.printStackTrace();
+return properties;

@@ -54,7 +54,7 @@ public class Lesson9 {
 
     public static void main(String[] args) {
         Lesson9 lesson9 = new Lesson9();
-        List <Integer> list = new ArrayList<>(lesson9.generateRandomSet(10_000_000));
+        List <Integer> list = new ArrayList<>(lesson9.generateRandomSet(1_000_000));
         long start;
         long stop;
         start = new Date().getTime();
