@@ -7,9 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class TaskInfo {
     private String zephyrName;
-    private String title;
+    private String scenarioName;
     private String component;
     private String status;
     private String assignee;
-
 }

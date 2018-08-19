@@ -3,6 +3,7 @@ package com.company.excell;
 import com.company.excell.exceptions.ExcelException;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -17,7 +18,23 @@ public class ExcelWorkbook {
 
     private String getFileExtension(String fullFileName) {
         return FilenameUtils.getExtension(fullFileName);
-//        return fullFileName.substring(fullFileName.lastIndexOf("."));
+    }
+
+    public Workbook create(String excelFileName) {
+        File fileExcel = new File(excelFileName);
+        if (fileExcel.exists()) {
+            fileExcel.delete();
+        }
+        String extension = getFileExtension(fileExcel.getAbsolutePath());
+        Workbook workbook;
+        if (extension.equals(XLSX)) {
+            workbook = new XSSFWorkbook();
+        } else if (extension.equals(XLS)) {
+            workbook = new HSSFWorkbook();
+        } else {
+            throw new ExcelException("Unknown file format");
+        }
+        return workbook;
     }
 
     public Workbook read(String excelFileName) {
@@ -32,7 +49,7 @@ public class ExcelWorkbook {
             } else if (extension.equals(XLS)) {
                 workbook = new HSSFWorkbook(inputStream);
             } else {
-                throw new RuntimeException("Unknown file format");
+                throw new ExcelException("Unknown file format");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -48,8 +65,19 @@ public class ExcelWorkbook {
         return workbook;
     }
 
+    public Sheet getSheet(Workbook workbook, String sheetName) {
+        if (sheetName.isEmpty()) {
+            sheetName = "Sheet1";
+        }
+        if (workbook.getSheet(sheetName) == null) {
+            return workbook.createSheet(sheetName);
+        }
+        return workbook.getSheet(sheetName);
+    }
+
     public void write(Workbook workbook, String excelFileName) {
         File fileExcel = new File(excelFileName);
+        new File(fileExcel.getParent()).mkdirs();
         FileOutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(fileExcel);
@@ -84,19 +112,13 @@ public class ExcelWorkbook {
     }
 
     public static void main(String[] args) {
-//        String excelFileName = "src/main/resources/excel/test.xls";
-//        ExcelWorkbook excelWorkbook = new ExcelWorkbook();
-//        Workbook workbook = excelWorkbook.read(excelFileName);
-//        workbook.getSheetAt(0).getRow(0).getCell(0).setCellValue("Name");
-//        System.out.println(workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
-//        excelWorkbook.write(workbook, excelFileName);
-//
-//        excelFileName = "src/main/resources/excel/test1.xlsx";
-//        workbook = new ExcelWorkbook().read(excelFileName);
-//        System.out.println(workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
-
-        String excelFileName = "src/main/resources/excel/QAA.xlsx";
+        String excelFileNameQAA = "src/main/resources/excel/QAA.xlsx";
+        String excelFileNameByStatus = "src/main/resources/excel/QAAByStatus.xlsx";
+        String excelFileNameByComponent = "src/main/resources/excel/QAAByComponent.xlsx";
+        String excelFileNameByAssignee = "src/main/resources/excel/QAAByAssignee.xlsx";
         ScopeReader scopeReader = new ScopeReader();
-        scopeReader.performTask(excelFileName);
+        scopeReader.performTask(excelFileNameQAA, excelFileNameByStatus, ScopeReader.GroupTasksBy.STATUS);
+        scopeReader.performTask(excelFileNameQAA, excelFileNameByComponent, ScopeReader.GroupTasksBy.COMPONENT);
+        scopeReader.performTask(excelFileNameQAA, excelFileNameByAssignee, ScopeReader.GroupTasksBy.ASSIGNEE);
     }
 }
