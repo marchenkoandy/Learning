@@ -1,5 +1,7 @@
 package com.company.excell;
 
+import com.company.excell.exceptions.ExcelException;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -9,12 +11,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ExcelTest {
-    public static final String XLSX = ".xlsx";
-    public static final String XLS = ".xls";
+public class ExcelWorkbook {
+    private static final String XLSX = "xlsx";
+    private static final String XLS = "xls";
 
     private String getFileExtension(String fullFileName) {
-        return fullFileName.substring(fullFileName.lastIndexOf("."));
+        return FilenameUtils.getExtension(fullFileName);
+//        return fullFileName.substring(fullFileName.lastIndexOf("."));
     }
 
     public Workbook read(String excelFileName) {
@@ -55,7 +58,7 @@ public class ExcelTest {
             }
             workbook.write(outputStream);
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new ExcelException();
         } finally {
             if (outputStream != null) {
                 try {
@@ -68,16 +71,32 @@ public class ExcelTest {
         }
     }
 
-    public static void main(String[] args) {
-        String excelFileName = "src/main/resources/excel/test.xls";
-        ExcelTest excelTest = new ExcelTest();
-        Workbook workbook = excelTest.read(excelFileName);
-        workbook.getSheetAt(0).getRow(0).getCell(0).setCellValue("Name");
-        System.out.println(workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
-        excelTest.write(workbook, excelFileName);
+    public void close(Workbook workbook) {
+        if (workbook != null) {
+            try {
+                workbook.close();
+            } catch (Exception e) {
+                throw new ExcelException();
+            } finally {
+                workbook = null;
+            }
+        }
+    }
 
-        excelFileName = "src/main/resources/excel/test1.xlsx";
-        workbook = new ExcelTest().read(excelFileName);
-        System.out.println(workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
+    public static void main(String[] args) {
+//        String excelFileName = "src/main/resources/excel/test.xls";
+//        ExcelWorkbook excelWorkbook = new ExcelWorkbook();
+//        Workbook workbook = excelWorkbook.read(excelFileName);
+//        workbook.getSheetAt(0).getRow(0).getCell(0).setCellValue("Name");
+//        System.out.println(workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
+//        excelWorkbook.write(workbook, excelFileName);
+//
+//        excelFileName = "src/main/resources/excel/test1.xlsx";
+//        workbook = new ExcelWorkbook().read(excelFileName);
+//        System.out.println(workbook.getSheetAt(0).getRow(0).getCell(0).getStringCellValue());
+
+        String excelFileName = "src/main/resources/excel/QAA.xlsx";
+        ScopeReader scopeReader = new ScopeReader();
+        scopeReader.performTask(excelFileName);
     }
 }
