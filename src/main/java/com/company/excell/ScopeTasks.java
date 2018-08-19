@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class ScopeTasksTable {
-    private List<String> columnName = new ArrayList<>();
+public class ScopeTasks {
+    private List<String> columnNames = new ArrayList<>();
     private List<TaskInfo> taskInfoList = new ArrayList<>();
 }

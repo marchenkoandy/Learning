@@ -117,8 +117,8 @@ public class ExcelWorkbook {
         String excelFileNameByComponent = "src/main/resources/excel/QAAByComponent.xlsx";
         String excelFileNameByAssignee = "src/main/resources/excel/QAAByAssignee.xlsx";
         ScopeReader scopeReader = new ScopeReader();
-        scopeReader.performTask(excelFileNameQAA, excelFileNameByStatus, ScopeReader.GroupTasksBy.STATUS);
-        scopeReader.performTask(excelFileNameQAA, excelFileNameByComponent, ScopeReader.GroupTasksBy.COMPONENT);
-        scopeReader.performTask(excelFileNameQAA, excelFileNameByAssignee, ScopeReader.GroupTasksBy.ASSIGNEE);
+        scopeReader.performTask(excelFileNameQAA, excelFileNameByStatus, ScopeReader.TaskItem.STATUS);
+        scopeReader.performTask(excelFileNameQAA, excelFileNameByComponent, ScopeReader.TaskItem.COMPONENT);
+        scopeReader.performTask(excelFileNameQAA, excelFileNameByAssignee, ScopeReader.TaskItem.ASSIGNEE);
     }
 }
