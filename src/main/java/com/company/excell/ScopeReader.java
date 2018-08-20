@@ -20,18 +20,7 @@ public class ScopeReader {
     }
 
     private Predicate<TaskInfo> filterByColumnItem(TaskItem taskItem, String item) {
-        return taskInfo -> {
-            switch (taskItem) {
-                case COMPONENT:
-                    return item.equalsIgnoreCase(taskInfo.getComponent());
-                case STATUS:
-                    return item.equalsIgnoreCase(taskInfo.getStatus());
-                case ASSIGNEE:
-                    return item.equalsIgnoreCase(taskInfo.getAssignee());
-                default:
-                    throw new EnumConstantNotPresentException(TaskItem.class, taskItem.name());
-            }
-        };
+        return taskInfo -> item.equalsIgnoreCase(itemsOfColumn(taskItem).apply(taskInfo));
     }
 
     private Function<TaskInfo, String> itemsOfColumn(TaskItem taskItem) {
